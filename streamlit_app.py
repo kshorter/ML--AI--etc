@@ -89,10 +89,10 @@ def load_and_prepare_data():
     
     # Extract TSLA data
     tsla_close = pd.to_numeric(df['Close'], errors='coerce')
-    tsla_high = pd.to_numeric(df[('High', 'TSLA')], errors='coerce')
-    tsla_low = pd.to_numeric(df[('Low', 'TSLA')], errors='coerce')
-    tsla_open = pd.to_numeric(df[('Open', 'TSLA')], errors='coerce')
-    tsla_volume = pd.to_numeric(df[('Volume', 'TSLA')], errors='coerce')
+    tsla_high = pd.to_numeric(df[('High')], errors='coerce')
+    tsla_low = pd.to_numeric(df[('Low')], errors='coerce')
+    tsla_open = pd.to_numeric(df[('Open')], errors='coerce')
+    tsla_volume = pd.to_numeric(df[('Volume')], errors='coerce')
     
     tsla_data = pd.DataFrame({
         'Close': tsla_close,
