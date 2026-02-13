@@ -85,14 +85,17 @@ def load_and_prepare_data():
     """Load and prepare the stock data with features"""
     # Load data
     data_path = 'sql/stock_market_data.csv'
-    df = pd.read_csv(data_path, skiprows=[0, 2])
+    df = pd.read_csv(data_path)
     
-    # Extract TSLA data
-    tsla_close = pd.to_numeric(df['Close'], errors='coerce')
-    tsla_high = pd.to_numeric(df[('High')], errors='coerce')
-    tsla_low = pd.to_numeric(df[('Low')], errors='coerce')
-    tsla_open = pd.to_numeric(df[('Open')], errors='coerce')
-    tsla_volume = pd.to_numeric(df[('Volume')], errors='coerce')
+    # Skip first two rows (Ticker row and Date row) and extract TSLA data
+    # TSLA is in columns with .2 suffix: Close.2, High.2, Low.2, Open.2, Volume.2
+    df = df.iloc[2:].reset_index(drop=True)  # Skip first 2 rows
+    
+    tsla_close = pd.to_numeric(df['Close.2'], errors='coerce')
+    tsla_high = pd.to_numeric(df['High.2'], errors='coerce')
+    tsla_low = pd.to_numeric(df['Low.2'], errors='coerce')
+    tsla_open = pd.to_numeric(df['Open.2'], errors='coerce')
+    tsla_volume = pd.to_numeric(df['Volume.2'], errors='coerce')
     
     tsla_data = pd.DataFrame({
         'Close': tsla_close,
